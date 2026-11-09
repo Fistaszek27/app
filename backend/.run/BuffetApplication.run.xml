@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="BuffetApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="buffet" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.buffet.BuffetApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
