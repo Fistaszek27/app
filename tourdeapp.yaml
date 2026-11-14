@@ -14,14 +14,14 @@ containers:
       PRODUCT_DB_HOST: 127.0.0.1
       PRODUCT_DB_NAME: product
       PRODUCT_DB_PORT: "3306"
-      SPRING_DATASOURCE_PASSWORD: "strongPassword?"
-      SPRING_DATASOURCE_USERNAME: tda_user
+      SPRING_DATASOURCE_PASSWORD: "password"
+      SPRING_DATASOURCE_USERNAME: root
   - name: mysql
     image: mysql
     tag: "8.4"
     env:
-      MYSQL_DATABASE: "product"
-      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: product
+      MYSQL_ROOT_PASSWORD: password
     port: 3306
   - name: caddy
     image: registry.tourde.cloud/shrimpsset/caddy
