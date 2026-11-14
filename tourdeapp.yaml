@@ -21,7 +21,7 @@ containers:
     tag: "8.4"
     env:
       MYSQL_DATABASE: product
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: 1234
     port: 3306
   - name: caddy
     image: registry.tourde.cloud/shrimpsset/caddy
