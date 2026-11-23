@@ -41,11 +41,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-  
-  adminer:
-    image: adminer
-    ports:
-      - "8888:8080"
 
 volumes:
   web-node-modules:

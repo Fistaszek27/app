@@ -1,35 +1,15 @@
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3001/api";
+import express from 'express';
+import cors from 'cors';
 
-export async function getProducts() {
-  const res = await fetch(`${API_URL}/product`);
-  return res.json();
-}
+const app = express();
+app.use(cors());
 
-export async function createProduct(product) {
-  const res = await fetch(`${API_URL}/product`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(product),
-  });
-  return res.json();
-}
 
-export async function updateProduct(id, product) {
-  const res = await fetch(`${API_URL}/product/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(product),
-  });
-  if (res.status === 404) {
-    const err = await res.json();
-    throw new Error(err.message);
-  }
-  return res.json();
-}
+app.get('/api/v1/health', (req, res) => {
+    res.status(200).json({ status: "ok" });
+});
 
-export async function deleteProduct(id) {
-  const res = await fetch(`${API_URL}/product/${id}`, {
-    method: "DELETE",
-  });
-  return res.json();
-}
+
+app.listen(5000, () => {
+    console.log("Zamek działa i CZEKA cały czas na http://localhost:5000");
+});
