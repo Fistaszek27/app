@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { getProducts, createProduct, updateProduct, deleteProduct } from "./api";
 import ProductForm from "./ProductForm";
 import ProductTable from "./ProductTable";
-
-export default function App() {
-  
+import { checkHealth } from './api';
+function App() {  
    const [apiValue, setApiValue] = useState('');
 
   useEffect(() => {
@@ -29,3 +28,4 @@ export default function App() {
   );
 
 }
+export default App;
