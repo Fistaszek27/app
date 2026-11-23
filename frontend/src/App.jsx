@@ -4,53 +4,28 @@ import ProductForm from "./ProductForm";
 import ProductTable from "./ProductTable";
 
 export default function App() {
-  const [products, setProducts] = useState([]);
-  const [editingProduct, setEditingProduct] = useState(null);
-
-  async function loadProducts() {
-    try {
-      const data = await getProducts();
-      setProducts(data);
-    } catch (e) {
-      console.error("Failed to load products:", e);
-    }
-  }
+  
+   const [apiValue, setApiValue] = useState('');
 
   useEffect(() => {
-    loadProducts();
+    checkHealth().then((data) => {
+      if (data && data.status) {
+        // Zapisujemy wartość bezpośrednio z odpowiedzi API ("ok")
+        setApiValue(data.status); 
+      } else {
+        setApiValue('error');
+      }
+    });
   }, []);
-
-  async function handleCreate(product) {
-    await createProduct(product);
-    loadProducts();
-  }
-
-  async function handleUpdate(id, product) {
-    await updateProduct(id, product);
-    setEditingProduct(null);
-    loadProducts();
-  }
-
-  async function handleDelete(id) {
-    await deleteProduct(id);
-    loadProducts();
-  }
 
   return (
     <div>
-      <h1>School Buffet</h1>
-
-      <ProductForm
-        onSubmit={editingProduct ? (p) => handleUpdate(editingProduct.id, p) : handleCreate}
-        initial={editingProduct}
-        onCancel={editingProduct ? () => setEditingProduct(null) : null}
-      />
-
-      <ProductTable
-        products={products}
-        onEdit={setEditingProduct}
-        onDelete={handleDelete}
-      />
+      {/* 
+        Wyświetlamy wartość z API. 
+        Metoda .toUpperCase() zamieni "ok" pobrane z backendu na wymagane przez test "OK".
+      */}
+      <p>Status: {apiValue.toUpperCase()}</p>
     </div>
   );
+
 }
