@@ -1,15 +1,31 @@
-import express from 'express';
-import cors from 'cors';
+const API_URL = "http://localhost:5000/api/products"; // Zmień port/ścieżkę, jeśli masz inną
 
-const app = express();
-app.use(cors());
+export const getProducts = async () => {
+  const response = await fetch(API_URL);
+  return response.json();
+};
 
+export const createProduct = async (product) => {
+  const response = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(product),
+  });
+  return response.json();
+};
 
-app.get('/api/v1/health', (req, res) => {
-    res.status(200).json({ status: "ok" });
-});
+export const updateProduct = async (id, product) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(product),
+  });
+  return response.json();
+};
 
-
-app.listen(5000, () => {
-    console.log("Zamek działa i CZEKA cały czas na http://localhost:5000");
-});
+export const deleteProduct = async (id) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+  });
+  return response.json();
+};
