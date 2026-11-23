@@ -1,31 +1,46 @@
-const API_URL = "http://localhost:5000/api/products"; // Zmień port/ścieżkę, jeśli masz inną
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3001/api";
 
-export const getProducts = async () => {
-  const response = await fetch(API_URL);
-  return response.json();
+export const checkHealth = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/api/v1/health`);
+    if (!response.ok) throw new Error('Błąd odpowiedzi sieci');
+    return await response.json();
+  } catch (error) {
+    console.error("Health check failed:", error);
+    return null;
+  }
 };
 
-export const createProduct = async (product) => {
-  const response = await fetch(API_URL, {
+export async function getProducts() {
+  const res = await fetch(`${API_URL}/product`);
+  return res.json();
+}
+
+export async function createProduct(product) {
+  const res = await fetch(`${API_URL}/product`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(product),
   });
-  return response.json();
-};
+  return res.json();
+}
 
-export const updateProduct = async (id, product) => {
-  const response = await fetch(`${API_URL}/${id}`, {
+export async function updateProduct(id, product) {
+  const res = await fetch(`${API_URL}/product/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(product),
   });
-  return response.json();
-};
+  if (res.status === 404) {
+    const err = await res.json();
+    throw new Error(err.message);
+  }
+  return res.json();
+}
 
-export const deleteProduct = async (id) => {
-  const response = await fetch(`${API_URL}/${id}`, {
+export async function deleteProduct(id) {
+  const res = await fetch(`${API_URL}/product/${id}`, {
     method: "DELETE",
   });
-  return response.json();
-};
+  return res.json();
+}
