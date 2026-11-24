@@ -1,15 +1,9 @@
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3001/api";
 
-export const checkHealth = async () => {
-  try {
-    const response = await fetch(`${BASE_URL}/api/v1/health`);
-    if (!response.ok) throw new Error('Błąd odpowiedzi sieci');
-    return await response.json();
-  } catch (error) {
-    console.error("Health check failed:", error);
-    return null;
-  }
-};
+export async function getHeal() {
+  const res = await fetch(`${API_URL}/v1/health`);
+  return res.json();
+}
 
 export async function getProducts() {
   const res = await fetch(`${API_URL}/product`);
