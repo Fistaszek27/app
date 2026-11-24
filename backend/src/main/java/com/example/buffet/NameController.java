@@ -19,6 +19,6 @@ public class NameController {
         return repository.findAll();
     }
 
-    
+
 
 }
