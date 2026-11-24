@@ -1,7 +1,4 @@
 import { useState, useEffect } from "react";
-import { getProducts, createProduct, updateProduct, deleteProduct } from "./api";
-import ProductForm from "./ProductForm";
-import ProductTable from "./ProductTable";
 import { checkHealth } from './api';
 function App() {  
    const [apiValue, setApiValue] = useState('');
