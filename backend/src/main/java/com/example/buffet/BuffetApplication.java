@@ -9,5 +9,10 @@ public class BuffetApplication {
     public static void main(String[] args) {
         SpringApplication.run(BuffetApplication.class, args);
     }
+    @Bean
+    public CommandLineRunner testPobierania(ProductRepository repository) {
+        return args -> repository.findAll().forEach(p -> System.out.println(p.getName()));
+    }
+
 
 }
